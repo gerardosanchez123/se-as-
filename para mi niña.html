@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>❤️ Feliz Primer Aniversario Lizbeth ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    font-family:'Georgia',serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    overflow:hidden;
+}
+
+/* Corazones */
+.corazones{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    pointer-events:none;
+}
+
+.corazon{
+    position:absolute;
+    color:#ff3366;
+    animation:flotar 8s linear infinite;
+}
+
+@keyframes flotar{
+    0%{
+        transform:translateY(100vh);
+        opacity:0;
+    }
+    20%{opacity:1;}
+    100%{
+        transform:translateY(-120px);
+        opacity:0;
+    }
+}
+
+/* Sobre */
+.wrapper{
+    position:relative;
+    cursor:pointer;
+    perspective:1000px;
+}
+
+.envelope{
+    position:relative;
+    width:400px;
+    height:260px;
+    background:#f0788a;
+    border-radius:0 0 10px 10px;
+    box-shadow:0 15px 30px rgba(0,0,0,.2);
+    z-index:3;
+}
+
+/* Solapa superior */
+.envelope::before{
+    content:"";
+    position:absolute;
+    border-left:200px solid transparent;
+    border-right:200px solid transparent;
+    border-top:140px solid #e05d71;
+    transform-origin:top;
+    transition: transform .5s ease-in-out;
+    z-index:5; 
+}
+
+/* Laterales e inferior del sobre */
+.envelope::after{
+    content:"";
+    position:absolute;
+    border-top:130px solid transparent;
+    border-bottom:130px solid transparent;
+    border-left:200px solid #e86b7e;
+    border-right:200px solid #e86b7e;
+    z-index:4;
+}
+
+/* Carta */
+.letter{
+    position:absolute;
+    bottom:10px;
+    left:20px;
+    width:360px;
+    height:230px;
+    background:white;
+    border-radius:15px;
+    padding:30px 25px;
+    overflow-y:auto;
+    transition: transform .7s cubic-bezier(0.175, 0.885, 0.32, 1.2), height .7s ease-in-out, width .7s ease-in-out, left .7s ease-in-out;
+    z-index:1;
+    box-shadow:0 5px 25px rgba(0,0,0,.2);
+}
+
+.letter h1{
+    color:#d1495b;
+    text-align:center;
+    margin-bottom:20px;
+    font-size: 26px;
+}
+
+.letter p{
+    color:#444;
+    line-height:1.8;
+    margin-bottom:15px;
+    text-align:justify;
+    font-size: 16px;
+}
+
+.firma{
+    text-align:center;
+    color:#d1495b;
+    font-weight:bold;
+    margin-top:20px;
+}
+
+/* Corazón del sobre */
+.heart{
+    position:absolute;
+    top:120px;
+    left:50%;
+    width:40px;
+    height:40px;
+    background:#d1495b;
+    transform:translate(-50%,-50%) rotate(45deg);
+    z-index:6;
+    transition:.4s ease-in-out;
+}
+
+.heart::before,
+.heart::after{
+    content:"";
+    position:absolute;
+    width:40px;
+    height:40px;
+    background:#d1495b;
+    border-radius:50%;
+}
+
+.heart::before{ top:-20px; }
+.heart::after{ left:-20px; }
+
+/* ========================================================
+   ANIMACIÓN: SOBREPUESTA EN EL CENTRO
+   ======================================================== */
+.wrapper.open .envelope::before{
+    transform: rotateX(180deg);
+    z-index: 1; 
+}
+
+.wrapper.open .letter{
+    z-index: 20;       
+    width: 380px;      
+    left: 10px;        
+    height: 340px;     
+    transform: translateY(-18%); 
+}
+
+.wrapper.open .heart{
+    opacity:0;
+    transform:translate(-50%,-50%) rotate(45deg) scale(0);
+}
+
+/* Barra de desplazamiento */
+.letter::-webkit-scrollbar {
+    width: 5px;
+}
+.letter::-webkit-scrollbar-thumb {
+    background: #f0788a;
+    border-radius: 10px;
+}
+
+/* ========================================================
+   RESPONSIVE PARA TELÉFONOS
+   ======================================================== */
+@media (max-width: 450px) {
+    .envelope {
+        width: 320px;
+        height: 210px;
+    }
+
+    .envelope::before {
+        border-left: 160px solid transparent;
+        border-right: 160px solid transparent;
+        border-top: 115px solid #e05d71;
+    }
+
+    .envelope::after {
+        border-top: 105px solid transparent;
+        border-bottom: 105px solid transparent;
+        border-left: 160px solid #e86b7e;
+        border-right: 160px solid #e86b7e;
+    }
+
+    .letter {
+        left: 15px;
+        width: 290px;
+        height: 180px;
+    }
+
+    .letter h1 { font-size: 20px; }
+    .letter p { font-size: 14px; }
+
+    .heart {
+        top: 105px;
+        width: 30px;
+        height: 30px;
+    }
+
+    .heart::before, .heart::after { width: 30px; height: 30px; }
+    .heart::before { top: -15px; }
+    .heart::after { left: -15px; }
+
+    .wrapper.open .letter {
+        z-index: 20;
+        width: 304px;
+        left: 8px;
+        height: 275px;
+        transform: translateY(-16%);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="corazones" id="corazones"></div>
+
+<div class="wrapper" id="envelopeWrapper">
+
+    <div class="envelope"></div>
+    <div class="heart"></div>
+
+    <div class="letter">
+        <h1>💖 Feliz Primer Aniversario Lizbeth 💖</h1>
+        
+        <p>✨ Mi amor Lizbeth: ✨</p>
+        
+        <p>
+            📆 Hoy celebramos nuestro primer aniversario juntos y quiero 
+            recordarte lo increíblemente importante que eres para mí. 🥰 En este 
+            tiempo te has convertido en mi persona favorita y en mi pensamiento más bonito de cada día. 💭🌸
+        </p>
+
+        <p>
+            💞 Gracias por cada sonrisa compartida, cada abrazo fuerte que me reinicia la vida, 
+            cada momento hermoso y por todo ese amor sincero que me regalas día con día. 🧸✨ 
+            Haces que todo a mi alrededor sea mucho más alegre y bonito. ☀️🌈
+        </p>
+
+        <p>
+            💫 A tu lado he aprendido que el amor verdadero se encuentra 
+            en los pequeños detalles, ☕️ en las risas compartidas sin sentido y en 
+            cada instante que vivimos juntos tomados de la mano. 🤝✨
+        </p>
+
+        <p>
+            🌹 Este primer año ha sido una de las etapas más maravillosas e inolvidables de 
+            mi vida, 🗺️ y espero con todo el corazón que sea solo el comienzo de muchísimos años 
+            más llenos de complicidad, sueños cumplidos juntos y felicidad infinita. 🥂✨
+        </p>
+
+        <p>
+            🔐 Te amo muchísimo, mi vida, y quiero seguir escribiendo los siguientes 
+            capítulos de nuestra hermosa historia contigo. 📝❤️
+        </p>
+
+        <div class="firma">
+            Con todo mi amor eterno ❤️<br>
+            Tu novio 🌹🥰
+        </div>
+    </div>
+
+</div>
+
+<script>
+const wrapper = document.getElementById("envelopeWrapper");
+wrapper.addEventListener("click",()=>{
+    wrapper.classList.toggle("open");
+});
+
+const contenedor = document.getElementById("corazones");
+function crearCorazon(){
+    const corazon = document.createElement("div");
+    corazon.classList.add("corazon");
+    corazon.innerHTML = "❤️";
+    corazon.style.left = Math.random()*100 + "vw";
+    corazon.style.fontSize = (Math.random()*20+15) + "px";
+    corazon.style.animationDuration = (Math.random()*4+4) + "s";
+    contenedor.appendChild(corazon);
+    setTimeout(()=>{ corazon.remove(); },8000);
+}
+setInterval(crearCorazon,300);
+</script>
+
+</body>
+</html>
